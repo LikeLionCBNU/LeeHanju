@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장고 과제</title>
+</head>
+<body>
+    <h1>장고 과제과제</h1>
+    {% for schedule in schedules.all %}
+        <div>
+            <h2>{{schedule.title}}</h2>
+            <p>{{schedule.memo}}</p>
+            <p>{{schedule.schedule_date}}</p>
+            <p>{{schedule.publish_date}}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>
