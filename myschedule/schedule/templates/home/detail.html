@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상세 페이지</title>
+</head>
+<body>
+    <h1>스케줄 상세 페이지</h1>
+    <div>
+        <h2>{{schedule.title}}</h2>
+        <p>{{schedule.memo}}</p>
+        <p>{{schedule.schedule_date}}</p>
+        <p>{{schedule.publish_date}}</p>
+        <a href="{% url 'home' %}">홈으로 돌아가기</a>
+        <a href="{% url 'edit' schedule.id %}">수정</a>
+        <a href="{% url 'delete' schedule.id %}">삭제</a>
+    </div>
+</body>
+</html>
