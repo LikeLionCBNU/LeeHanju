@@ -1,0 +1,10 @@
+<div>
+    <a href="{% url 'post_new' %}">새 글 작성</a>
+</div>
+<div style="margin-top: 70px;">
+    {% for post in posts %}
+    <div style="margin: 10px;">
+        <a href="{% url 'detail' post.pk %}">{{post.title}}</a>
+    </div>
+    {% endfor %}
+</div>

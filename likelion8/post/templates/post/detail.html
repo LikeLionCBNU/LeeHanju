@@ -1,0 +1,25 @@
+<div>
+    <h2><a href="{% url 'index' %}">home</a></h2>
+</div>
+
+<h1>{{post.title}}</h1>
+<div>작성시간 : {{post.created_at|date:'Y.m.d H:i:s'}}</div>
+<!-- 참고 https://ssungkang.tistory.com/entry/DjangoDate%EC%99%80-Time%EC%9D%84-%EB%82%98%ED%83%80%EB%82%B4%EB%8A%94-template-filter -->
+<div>수정시간 : {{post.updated_at}}</div>
+<div>
+    <a href="{% url 'post_edit' post.pk %}">수정</a>
+    <a href="{% url 'post_delete' post.pk %}">삭제</a>
+</div>
+<div style="padding-top: 50px;">
+    {{post.content}}
+</div>
+
+{% for comment in post.comment_set.all %}
+<h4>{{comment.content}}</h4>
+<a href="{% url 'comment_delete' comment.pk %}">삭제</a>
+{% endfor %}
+<form action="{% url 'comment_new' post.pk %}" method="POST">
+    {% csrf_token %}
+    {{commentForm}}
+    <input type="submit">
+</form>
