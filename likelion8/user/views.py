@@ -18,10 +18,10 @@ def signup(request):
 
 def signin(request):
     if request.method == "POST":
-        form = LoginForm(reqeust.POST)
+        form = LoginForm(request.POST)
         username = request.POST['username']
-        password = request.POST['passowrd']
-        user = authentication(username= username, password=password)
+        password = request.POST['password']
+        user = authenticate(username= username, password=password)
         if user is not None:
             login(request, user)
             return redirect('index')

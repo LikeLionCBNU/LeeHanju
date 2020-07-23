@@ -1,7 +1,11 @@
 <div>
     <h2><a href="{% url 'index' %}">home</a></h2>
 </div>
-
+<div>
+    {% if user.is_active %}
+    <h4>{{user.username}}</h4>
+    {% endif %}
+</div>
 <h1>{{post.title}}</h1>
 <div>작성시간 : {{post.created_at|date:'Y.m.d H:i:s'}}</div>
 <!-- 참고 https://ssungkang.tistory.com/entry/DjangoDate%EC%99%80-Time%EC%9D%84-%EB%82%98%ED%83%80%EB%82%B4%EB%8A%94-template-filter -->
@@ -15,8 +19,12 @@
 </div>
 
 {% for comment in post.comment_set.all %}
-<h4>{{comment.content}}</h4>
-<a href="{% url 'comment_delete' comment.pk %}">삭제</a>
+    <h4>{{comment.content}}</h4>
+    {% if user.is_active %}
+        <h4>작성자 {{user.username}}</h4>
+    {% endif %}
+    <a href="{% url 'comment_delete' comment.pk %}">삭제</a>
+    <a href="{% url 'comment_edit' comment.pk %}">수정</a>
 {% endfor %}
 <form action="{% url 'comment_new' post.pk %}" method="POST">
     {% csrf_token %}

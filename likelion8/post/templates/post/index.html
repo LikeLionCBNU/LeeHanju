@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
 <div>
     <a href="{% url 'post_new' %}">새 글 작성</a>
 </div>
@@ -8,3 +13,5 @@
     </div>
     {% endfor %}
 </div>
+
+{% endblock %}

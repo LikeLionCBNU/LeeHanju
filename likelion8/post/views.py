@@ -41,6 +41,17 @@ def post_delete(request, id):
     post.delete()
     return redirect('index')
 
+def comment_edit(request, id):
+    comment = get_object_or_404(Comment, pk=id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.save()
+            return redirect('index')
+    else:
+        form = CommentForm(instance=comment)
+    return render(request, 'post/edit_comment.html', {'form': form, })
 
 def comment_new(request, id):
     if request.method == 'POST':
@@ -57,3 +68,5 @@ def comment_delete(request, id):
     comment = get_object_or_404(Comment, pk=id)
     comment.delete()
     return redirect('index')
+
+
