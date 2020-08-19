@@ -1,0 +1,35 @@
+{% extends "blog_base.html" %}
+
+{% block content %}
+
+<!-- Page Header -->
+  <header class="masthead" style="background-image: url('img/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>검색 결과</h1>
+            <span class="subheading">"{{q}}" 검색 결과</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+{% if not posts %}
+<h1>검색 결과가 없습니다.</h1>
+{% else %}
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+    {% for post in posts.all %}
+    <div class="post-preview">
+          <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+          <p class="post-meta">{{ post.modify_date }}</p>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

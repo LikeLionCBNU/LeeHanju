@@ -1,0 +1,32 @@
+{% extends "blog_base.html" %}
+
+{% block content %}
+
+<!-- Page Header -->
+  <header class="masthead" style="background-image: url('img/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>{{ tagname }}</h1>
+            <span class="subheading">"{{tagname}}" 관련 결과</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+    {% for post in object_list %}
+    <div class="post-preview">
+          <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+          <p class="post-meta">{{ post.modify_date }}</p>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

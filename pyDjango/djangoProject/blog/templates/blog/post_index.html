@@ -1,0 +1,52 @@
+{% extends "blog_base.html" %}
+
+{% block content %}
+  <!-- Page Header -->
+  <header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>블로그 홈</h1>
+            <span class="subheading">부트스트랩 이용 예제</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <hr>
+        {% for post in posts %}
+        <div class="post-preview">
+          <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+          <p class="post-meta">{{ post.modify_date }} 조회수 {{ post.hits }}</p>
+          {% for tag in post.tags.all %}
+            <span class="bage badge-dark"><a href="{% url 'tagged_post_list' tag.name %}" style="color: white;">#{{ tag.name }}</a></span>
+          {% endfor %}
+
+        </div>
+        <hr>
+        {% endfor %}
+        
+        <!-- Pager -->
+        
+        <form class="form-inline my-2 my-lg-0" action="{% url 'post_search' %}" method="post">
+        {% csrf_token %}
+          <input class="form-control mr-sm-2" type="search" name="q" value="{{q}}">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <div class="clearfix">
+            <a class="btn btn-primary float-right" href="{% url 'post_new' %}">새 글쓰기</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+{% endblock %}

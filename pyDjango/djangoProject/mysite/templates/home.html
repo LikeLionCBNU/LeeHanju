@@ -1,0 +1,37 @@
+{% extends "base_home.html" %}
+
+{% block title %}home.html{% endblock %}
+
+{% load static %}
+{% block extrastyle %}{% static 'css/home.css' %}{% endblock %}
+
+{% block content %}
+
+    <div id="homeimg">
+        <a href="/"><img src="{% static 'img/img1.jpeg' %}" style="height:300px; width:80%;"/></a>
+        <h4 style="margin: 0;">This is Django web site.</h4>
+    </div>
+
+    <hr style="margin: 5px 0;">
+    
+    <h2>Select Application</h2>
+
+    <table id="applist">
+        <tr>
+            <td><b><i><a href="{% url 'list' %}">Bookmark</a></i></b></td>
+            <td>김서빈</td>
+        </tr>
+
+        <tr>
+            <td><b><i><a href="{% url 'post_index' %}">Blog</a></i></b></td>
+            <td>이한주</td>
+        </tr>
+
+    </table>
+{% endblock content %}
+
+{% block footer %}
+    <div id="footer">
+        This is footer area.
+    </div>
+{% endblock footer %}

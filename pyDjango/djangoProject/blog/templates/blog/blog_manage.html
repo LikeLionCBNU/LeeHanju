@@ -1,0 +1,83 @@
+{% extends "blog_base.html" %}
+
+{% block content%}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+
+
+<!-- Page Header -->
+  <header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+        
+          <div class="post-heading">
+            <h1>관리 페이지</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <table class="table">
+            <th colspan="2">인기글</th>
+            <th>조회수</th>
+            {% for post in populars %}
+            <tr>
+                <td style="color: red;">{{ forloop.counter }}</td>
+                <td><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></td>
+                <td>{{ post.hits }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <hr>
+      </div>
+    </div>
+    <br>
+
+    <div class="row text-center" style="width: 100%;">
+      <div style="width: 100%; float:none; margin:0 auto"> 
+        <h3>해시태그 통계</h3>
+      </div>
+      <div style="float:none; margin: 0 auto;">
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </div>
+          <script>
+              var l = "{{ tag_keys }}";
+              l = l.replace(/&#x27;/g, "'");
+              l = l.replace('[', '');
+              l = l.replace(']', '');
+              l = l.split(',');
+              //replaceAll(l, "&#x27;", "'");
+              var d = {{ tag_values }};
+
+              colors = ["#ff6364", "#36A2EB", "#ffce56", "#36a2bb"];
+
+                var ctx = document.getElementById("myChart");
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: l,
+                        datasets: [{
+                            label: 'Groups',
+                            data: d,
+                            backgroundColor: [
+                              "#ff6364",
+                              "#36a2bb",
+                              "#ffce56",
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive:false
+                    }
+                });
+          </script>
+    </div>
+  </div>
+
+{% endblock  %}

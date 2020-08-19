@@ -1,0 +1,73 @@
+{% extends "blog_base.html" %}
+
+{% block content %}
+
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('img/contact-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>글 수정하기</h1>
+            <span class="subheading">포스팅 글 수정</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
+        <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
+        <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
+        <form name="sentMessage" id="contactForm" method="POST">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                {% for field in form %}
+                    {% if field.errors %}
+                    <strong>{{ field.label }}</strong>
+                    {{ field.errors }}
+                    {% endif %}
+                {% endfor %}
+                </div>
+            {% endif %}
+
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" name="title" placeholder="제목" id="title" value="{{ form.title.value|default_if_none:'' }}">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>내용</label>
+              <textarea rows="10" class="form-control" name="content" placeholder="내용" id="content">{{ form.content.value|default_if_none:'' }}</textarea>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>태그 달기</label>
+              <input type="text" class="form-control" placeholder="태그" name="tags">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <br>
+          <div id="success"></div>
+          <button type="submit" class="btn btn-primary" id="sendMessageButton">저장</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+{% endblock %}
